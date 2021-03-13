@@ -43,10 +43,8 @@
 
       in rec {
         defaultPackage = pkgs.blog;
-        apps.blog = flake-utils.lib.mkApp { drv = pkgs.blog; };
-        defaultApp = apps.blog;
         devShell = pkgs.devshell.mkShell {
-          name = "blog-dev-shell";
+          name = "todo-mvc-devShell";
           bash = {
             extra = ''
               export LD_INCLUDE_PATH="$DEVSHELL_DIR/include"
