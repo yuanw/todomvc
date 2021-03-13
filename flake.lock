@@ -1,0 +1,79 @@
+{
+  "nodes": {
+    "devshell": {
+      "locked": {
+        "lastModified": 1613641255,
+        "narHash": "sha256-iSvjFK4WYAKhuXCCtkY7uy/cFQTzS3D3Ml5WZqjEfL0=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "ff6cffba08600f5b7b43f398fcb58bef023bc4c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "ref": "master",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
+    "easy-ps": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1614300071,
+        "narHash": "sha256-1ireJXUxS36e7QNc6A4/AKL72N6gvTfLyzEb9AXIYjo=",
+        "owner": "justinwoo",
+        "repo": "easy-purescript-nix",
+        "rev": "3b4039475c245243716b1e922455a9062c0531da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "justinwoo",
+        "ref": "master",
+        "repo": "easy-purescript-nix",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1614513358,
+        "narHash": "sha256-LakhOx3S1dRjnh0b5Dg3mbZyH0ToC9I8Y2wKSkBaTzU=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "ref": "master",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1615583000,
+        "narHash": "sha256-ysd3ntUs8qeVuYdmp2Y5J992NVdoKji9i92StU3IJ7M=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "60b18a066e8ce5dd21ebff5324345d3586a67ad9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-20.09",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "devshell": "devshell",
+        "easy-ps": "easy-ps",
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
