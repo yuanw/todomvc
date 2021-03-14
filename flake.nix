@@ -39,7 +39,7 @@
         };
 
         myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle
-          (p: with p; [ cabal-install ormolu hlint ]));
+          (p: with p; [ cabal-install ormolu hlint hpack ]));
 
       in rec {
         defaultPackage = pkgs.blog;
