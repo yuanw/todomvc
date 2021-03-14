@@ -20,11 +20,7 @@
 
         haskellPackages = prev.haskellPackages.override {
           overrides = hself: hsuper: {
-            todomvc = hself.callCabal2nix "todomvc"
-              (final.nix-gitignore.gitignoreSourcePure [
-                ./.gitignore
-
-              ] ./.) { };
+            todomvc = hself.callCabal2nix "todomvc" ./. { };
           };
         };
         todomvc =
