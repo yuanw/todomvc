@@ -14,7 +14,7 @@
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, flake-utils, easy-ps, devshell }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, easy-ps, devshell, ... }:
     let
       overlay = final: prev: {
 
