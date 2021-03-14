@@ -15,17 +15,16 @@
       overlay = final: prev: {
 
         haskellPackages = prev.haskellPackages.override {
-          overrides = hself: hsuper:
-            {
-              # blog = hself.callCabal2nix "blog"
-              #   (final.nix-gitignore.gitignoreSourcePure [
-              #     ./.gitignore
+          overrides = hself: hsuper: {
+            todomvc = hself.callCabal2nix "todomvc"
+              (final.nix-gitignore.gitignoreSourcePure [
+                ./.gitignore
 
-              #   ] ./src) { };
-            };
+              ] ./.) { };
+          };
         };
-        # blog =
-        #   final.haskell.lib.justStaticExecutables final.haskellPackages.blog;
+        todomvc =
+          final.haskell.lib.justStaticExecutables final.haskellPackages.todomvc;
         purs = (final.callPackage easy-ps { }).purs;
         spago = (final.callPackage easy-ps { }).spago;
       };
@@ -42,7 +41,7 @@
           (p: with p; [ cabal-install ormolu hlint hpack ]));
 
       in rec {
-        defaultPackage = pkgs.blog;
+        defaultPackage = pkgs.todomvc;
         devShell = pkgs.devshell.mkShell {
           name = "todo-mvc-devShell";
           bash = {
