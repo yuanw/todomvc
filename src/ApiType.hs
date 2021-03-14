@@ -5,7 +5,6 @@
 module ApiType where
 
 import Data.Aeson
-import Data.Aeson.Types
 import Data.Proxy ()
 import GHC.Generics
 import Servant
@@ -31,12 +30,12 @@ scientists =
 
 type API =
   "scientist" :> Get '[JSON] [Scientist]
-    :<|> Raw
+    :<|> "static" :> Raw
 
 server :: Server API
 server =
   pure scientists
-    :<|> serveDirectoryFileServer "dist"
+    :<|> serveDirectoryFileServer "./static"
 
 myAPI :: Proxy API
 myAPI = Proxy

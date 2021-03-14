@@ -1,3 +1,30 @@
+# Created by https://www.gitignore.io/api/haskell
+.DS_Store
+.direnv
+node_modules/
+result
+result-2
+.DS_Store
+### Haskell ###
+dist
+dist-newstyle
+cabal-dev
+.pre-commit-config.yaml
+*.o
+*.hi
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+.hpc
+.hsenv
+.cabal-sandbox/
+cabal.sandbox.config
+*.prof
+*.aux
+*.hp
+
+
 /bower_components/
 /node_modules/
 /.pulp-cache/
