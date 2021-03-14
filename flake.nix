@@ -9,6 +9,10 @@
       flake = false;
     };
     devshell.url = "github:numtide/devshell/master";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
   outputs = { self, nixpkgs, flake-utils, easy-ps, devshell }:
     let
