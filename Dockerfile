@@ -14,19 +14,5 @@ COPY default.nix .
 COPY flake.nix .
 COPY flake.lock .
 COPY todomvc.cabal .
-RUN nix-build
-
-# Use the official Debian slim image for a lean production container.
-# https://hub.docker.com/_/debian
-# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-
-#FROM alpine:3.7 AS cloud-run-hello
-# WORKDIR /opt
-
-# Copy the "helloworld-haskell-exe" executable from the builder stage to the production image.
-
-#COPY --from=builder /app/result/ /todomvc
-
-# Run the web service on container startup.
-
-CMD ["/app/result/bin/todomvc-exe"]
+#RUN nix-build
+#RUN nix-env -iA nixpkgs.docker

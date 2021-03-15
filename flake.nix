@@ -23,7 +23,7 @@
             todomvc = hself.callCabal2nix "todomvc" ./. { };
           };
         };
-        todomvc-exe =
+        todomvc =
           final.haskell.lib.justStaticExecutables final.haskellPackages.todomvc;
         purs = (final.callPackage easy-ps { }).purs;
         spago = (final.callPackage easy-ps { }).spago;
@@ -40,8 +40,14 @@
         myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle
           (p: with p; [ cabal-install ormolu hlint hpack ]));
 
+        docker = pkgs.dockerTools.buildImage {
+          name = "todomvc";
+          config.Cmd = [ "${pkgs.todomvc}/bin/todomvc-exe" ];
+          };
+
       in rec {
-        defaultPackage = pkgs.todomvc-exe;
+        defaultPackage = docker;
+        packages.todomvc = pkgs.todomvc;
         devShell = pkgs.devshell.mkShell {
           name = "todo-mvc-devShell";
           bash = {
