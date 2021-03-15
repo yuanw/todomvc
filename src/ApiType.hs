@@ -9,11 +9,10 @@ import Data.Proxy ()
 import GHC.Generics
 import Servant
 
-data Scientist
-  = Scientist
-      { sId :: Int,
-        sName :: String
-      }
+data Scientist = Scientist
+  { sId :: Int,
+    sName :: String
+  }
   deriving (Eq, Show, Generic)
 
 instance ToJSON Scientist
@@ -30,12 +29,14 @@ scientists =
 
 type API =
   "scientist" :> Get '[JSON] [Scientist]
-    :<|> "static" :> Raw
+
+--  :<|> "static" :> Raw
 
 server :: Server API
 server =
   pure scientists
-    :<|> serveDirectoryFileServer "./static"
+
+-- :<|> serveDirectoryFileServer "./static"
 
 myAPI :: Proxy API
 myAPI = Proxy

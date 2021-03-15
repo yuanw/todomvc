@@ -23,7 +23,7 @@
             todomvc = hself.callCabal2nix "todomvc" ./. { };
           };
         };
-        todomvc =
+        todomvc-exe =
           final.haskell.lib.justStaticExecutables final.haskellPackages.todomvc;
         purs = (final.callPackage easy-ps { }).purs;
         spago = (final.callPackage easy-ps { }).spago;
@@ -41,7 +41,7 @@
           (p: with p; [ cabal-install ormolu hlint hpack ]));
 
       in rec {
-        defaultPackage = pkgs.todomvc;
+        defaultPackage = pkgs.todomvc-exe;
         devShell = pkgs.devshell.mkShell {
           name = "todo-mvc-devShell";
           bash = {
