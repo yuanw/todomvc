@@ -14,5 +14,4 @@ COPY default.nix .
 COPY flake.nix .
 COPY flake.lock .
 COPY todomvc.cabal .
-#RUN nix-build
-#RUN nix-env -iA nixpkgs.docker
+RUN nix-build

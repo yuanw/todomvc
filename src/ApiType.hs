@@ -29,14 +29,12 @@ scientists =
 
 type API =
   "scientist" :> Get '[JSON] [Scientist]
-
---  :<|> "static" :> Raw
+    :<|> "static" :> Raw
 
 server :: Server API
 server =
   pure scientists
-
--- :<|> serveDirectoryFileServer "./static"
+    :<|> serveDirectoryFileServer "/var/www"
 
 myAPI :: Proxy API
 myAPI = Proxy
