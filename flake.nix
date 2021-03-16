@@ -43,6 +43,11 @@
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
           tag = "latest";
+          contents = [ pkgs.bash pkgs.exa ];
+          extraCommands = ''
+            mkdir -p var/www
+            cp ${./static/index.html} /var/www/index.html
+          '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };
 
