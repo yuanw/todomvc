@@ -10,6 +10,7 @@ RUN nix-env -iA nixpkgs.git
 # Build and test our code, then build the “helloworld-haskell-exe” executable.
 COPY app app
 COPY src src
+COPY static static
 COPY default.nix .
 COPY flake.nix .
 COPY flake.lock .

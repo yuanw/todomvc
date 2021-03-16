@@ -43,14 +43,7 @@
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
           tag = "latest";
-          runAsRoot = ''
-            ${pkgs.dockerTools.shadowSetup}
-            groupadd -r nogroup
-            useradd -r nobody -g nogroup -d /dev/null
-            mkdir -p /var/www
-            cp ${./static/index.html} /var/www/index.html
-          '';
-          config.Cmd = [ "${pkgs.todomvc}/bin/todomvc-exe" ];
+          config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };
 
       in rec {
