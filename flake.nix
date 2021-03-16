@@ -46,7 +46,8 @@
           contents = [ pkgs.bash pkgs.exa ];
           extraCommands = ''
             mkdir -p var/www
-            cp ${./static/index.html} /var/www/index.html
+            cd var/www
+            touch index.html
           '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };
