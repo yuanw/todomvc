@@ -22,7 +22,7 @@ default-extensions:
 name: todomvc
 
 executables:
-  todomvc-exe:
+  todomvc:
     source-dirs: app
     main: Main.hs
     ghc-options:
