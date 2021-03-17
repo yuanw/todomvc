@@ -1,0 +1,2 @@
+* ReaderT
+https://stackoverflow.com/questions/61780295/readert-design-pattern-parametrize-the-environment

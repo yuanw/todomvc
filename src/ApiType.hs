@@ -1,6 +1,10 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeOperators #-}
+-- https://www.reddit.com/r/haskell/comments/5rvyy7/help_needed_to_understand_extendeddefaultrules/
+{-# LANGUAGE ExtendedDefaultRules #-}
+{-# LANGUAGE OverloadedStrings   #-}
+
 
 {-# LANGUAGE MultiParamTypeClasses #-}
 module ApiType where
@@ -59,31 +63,26 @@ type API =
     :<|> Get '[HTML] RawHtml
     :<|> "static" :> Raw
 
-
+-- https://github.com/tryhaskell/tryhaskell/blob/d8b59e71d46cb890935f5c0c6c1d723cc9f78d99/src/TryHaskell.hs#L326-L419
 renderIndex :: Html ()
 renderIndex = html_ $ do
   head_ $ do
     title_ "User Page"
     link_ [rel_ "stylesheet", type_ "text/css", href_ "/styles.css"]
-    link_ [href_ "/static/js/main.js"]
-  body_ $ userBody
-  where
-    userBody = div_ [class_ "login-message"] $ do
-        p_ "You aren't logged in!"
-        br_ []
-        a_ [href_ "/login"] "Please login"
+  body_ $ do 
+    script_ [src_ "/static/main.js"] "" 
 
 indexHandler :: Handler RawHtml
 indexHandler = return $ RawHtml (renderBS renderIndex)
 
-server :: Server API
-server =
+server :: String -> Server API
+server path =
   pure scientists
     :<|> indexHandler
-    :<|> serveDirectoryFileServer "/var/www"
+    :<|> serveDirectoryFileServer path
 
 myAPI :: Proxy API
 myAPI = Proxy
 
-app :: Application
-app = serve myAPI server
+app :: String -> Application
+app filePath = serve myAPI (server filePath)

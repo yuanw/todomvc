@@ -46,8 +46,8 @@
           # for debugging
           contents = [ pkgs.bash pkgs.coreutils ];
           extraCommands = ''
-            mkdir -p var/www
-            cp ${./static/index.html} var/www/index.html
+            mkdir -p var/www/
+            cp ${./static//main.js} var/www/main.js
           '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };
@@ -114,6 +114,10 @@
             {
               name = "NIX_GHCPKG";
               value = "${myHaskellEnv}/bin/ghc-pkg";
+            }
+            {
+              name = "STATIC_FILE_PATH";
+              value = "./static";
             }
           ];
           packages = [ myHaskellEnv pkgs.nixpkgs-fmt ];
