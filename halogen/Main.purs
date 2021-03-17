@@ -36,7 +36,7 @@ main = runHalogenAff do
 type StaticHTML = H.ComponentHTML Unit () Aff
 
 -- | Wraps Halogen types cleanly, so that one gets very clear compiler errors
--- staticComponent :: StaticHTML -> H.Component HH.HTML (Const Void) Unit Void Aff
+staticComponent :: StaticHTML -> H.Component (Const Void) Unit Void Aff
 staticComponent renderHtml =
   H.mkComponent
     { initialState: const unit
