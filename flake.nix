@@ -47,7 +47,7 @@
           contents = [ pkgs.bash pkgs.coreutils ];
           extraCommands = ''
             mkdir -p var/www/
-            cp ${./static//main.js} var/www/main.js
+            cp ${./static/main.js} var/www/main.js
           '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };
