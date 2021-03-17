@@ -65,6 +65,7 @@ renderIndex = html_ $ do
   head_ $ do
     title_ "User Page"
     link_ [rel_ "stylesheet", type_ "text/css", href_ "/styles.css"]
+    link_ [href_ "/static/js/main.js"]
   body_ $ userBody
   where
     userBody = div_ [class_ "login-message"] $ do
