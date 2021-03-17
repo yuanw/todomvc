@@ -7,7 +7,10 @@ library:
 dependencies:
   - base >= 4.7 && < 5
   - aeson
+  - bytestring
   - containers
+  - http-media
+  - lucid
   - servant
   - servant-server
   - text

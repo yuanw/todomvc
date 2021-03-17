@@ -38,16 +38,16 @@
         };
 
         myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle
-          (p: with p; [ cabal-install ormolu hlint hpack ]));
+          (p: with p; [ cabal-install ormolu hlint hpack ] ++ pkgs.todomvc.buildInputs));
 
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
           tag = "latest";
-          contents = [ pkgs.bash pkgs.exa ];
+          # for debugging
+          contents = [ pkgs.bash pkgs.coreutils ];
           extraCommands = ''
             mkdir -p var/www
-            cd var/www
-            touch index.html
+            cp ${./static/index.html} var/www/index.html
           '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };

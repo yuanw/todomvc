@@ -21,7 +21,10 @@ library
   build-depends:
       aeson
     , base >=4.7 && <5
+    , bytestring
     , containers
+    , http-media
+    , lucid
     , servant
     , servant-server
     , text
@@ -29,7 +32,7 @@ library
     , warp
   default-language: Haskell2010
 
-executable todomvc
+executable todomvc-exe
   main-is: Main.hs
   other-modules:
       Paths_todomvc
@@ -41,7 +44,10 @@ executable todomvc
   build-depends:
       aeson
     , base >=4.7 && <5
+    , bytestring
     , containers
+    , http-media
+    , lucid
     , servant
     , servant-server
     , text
