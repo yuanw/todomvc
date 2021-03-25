@@ -37,8 +37,9 @@
           overlays = [ devshell.overlay overlay ];
         };
 
-        myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle
-          (p: with p; [ cabal-install ormolu hlint hpack ] ++ pkgs.todomvc.buildInputs));
+        myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle (p:
+          with p;
+          [ cabal-install ormolu hlint hpack ] ++ pkgs.todomvc.buildInputs));
 
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
@@ -120,7 +121,12 @@
               value = "./static";
             }
           ];
-          packages = [ myHaskellEnv pkgs.nixpkgs-fmt ];
+          packages = [
+            myHaskellEnv
+            pkgs.nixpkgs-fmt
+            pkgs.nodePackages.purescript-language-server
+            pkgs.nodePackages.pscid
+          ];
         };
       });
 }

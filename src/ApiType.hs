@@ -9,11 +9,23 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 module ApiType where
 
-import Data.Aeson
-import Data.ByteString.Lazy as Lazy
+import Data.Aeson ( ToJSON )
+import Data.ByteString.Lazy as Lazy ( ByteString )
 import Data.Proxy ()
 import GHC.Generics
 import Lucid
+    ( renderBS,
+      src_,
+      script_,
+      body_,
+      href_,
+      type_,
+      rel_,
+      link_,
+      title_,
+      head_,
+      html_,
+      Html )
 import Network.HTTP.Media ((//), (/:))
 import Servant
     ( Proxy(..),
@@ -67,7 +79,7 @@ type API =
 renderIndex :: Html ()
 renderIndex = html_ $ do
   head_ $ do
-    title_ "User Page"
+    title_ "Todomvc"
     link_ [rel_ "stylesheet", type_ "text/css", href_ "/styles.css"]
   body_ $ do 
     script_ [src_ "/static/main.js"] "" 
