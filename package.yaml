@@ -11,14 +11,20 @@ dependencies:
   - containers
   - http-media
   - lucid
+  - mtl
   - servant
+  - servant-rawm
+  - servant-rawm-server
   - servant-server
+  - stm
   - text
   - time
+  - transformers
   - warp
 
 default-extensions:
   - OverloadedStrings
+  - TypeApplications
 name: todomvc
 
 executables:
