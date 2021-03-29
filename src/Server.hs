@@ -2,15 +2,13 @@
 {-# LANGUAGE ExtendedDefaultRules #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-deferred-type-errors #-}
 
 module Server where
 
-import Api (API, Scientist (..))
+import Api (API, RawHtml (..), Scientist (..))
 import Control.Concurrent.STM
 import Control.Monad.IO.Class
 import Control.Monad.Reader
-import Data.ByteString.Lazy as Lazy (ByteString)
 import Data.Proxy ()
 import Lucid
   ( Html,
@@ -26,7 +24,6 @@ import Lucid
     title_,
     type_,
   )
-import Network.HTTP.Media ((//), (/:))
 import Servant hiding (serveDirectoryWebApp)
 import Servant.RawM.Server (serveDirectoryWebApp)
 
@@ -35,18 +32,6 @@ data Env = Env
     staticDir :: FilePath,
     scientistStore :: !(TVar [Scientist])
   }
-
--- https://mmhaskell.com/blog/2020/3/23/serving-html-with-servant
-newtype RawHtml = RawHtml {unRaw :: Lazy.ByteString}
-
-data HTML = HTML
-
-instance Accept HTML where
-  contentType _ = "text" // "html" /: ("charset", "utf-8")
-
--- tell Servant how to render the newtype to html page, in this case simply unwrap it
-instance MimeRender HTML RawHtml where
-  mimeRender _ = unRaw
 
 scientists :: [Scientist]
 scientists =
@@ -80,7 +65,7 @@ rawEndpoint = do
 
 -- https://docs.servant.dev/en/stable/cookbook/using-custom-monad/UsingCustomMonad.html
 serverRoot :: ServerT API (ReaderT Env IO)
-serverRoot = pure scientists :<|> rawEndpoint
+serverRoot = pure scientists :<|> indexHandler :<|> rawEndpoint
 
 myAPI :: Proxy API
 myAPI = Proxy
