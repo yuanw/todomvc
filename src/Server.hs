@@ -6,9 +6,12 @@
 module Server where
 
 import Api (API, RawHtml (..), Scientist (..))
-import Control.Concurrent.STM
-import Control.Monad.IO.Class
+import Control.Concurrent.STM (TVar)
+import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Monad.Reader
+  ( MonadReader (ask),
+    ReaderT (runReaderT),
+  )
 import Data.Proxy ()
 import Lucid
   ( Html,
@@ -24,7 +27,16 @@ import Lucid
     title_,
     type_,
   )
-import Servant hiding (serveDirectoryWebApp)
+import Servant
+  ( Application,
+    Handler,
+    HasServer (ServerT),
+    Proxy (..),
+    Server,
+    hoistServer,
+    serve,
+    (:<|>),
+  )
 import Servant.RawM.Server (serveDirectoryWebApp)
 
 data Env = Env
