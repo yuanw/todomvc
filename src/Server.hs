@@ -1,3 +1,4 @@
+{-# LANGUAGE ExplicitNamespaces #-}
 -- https://www.reddit.com/r/haskell/comments/5rvyy7/help_needed_to_understand_extendeddefaultrules/
 {-# LANGUAGE ExtendedDefaultRules #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -34,9 +35,9 @@ import Servant
     Proxy (..),
     Server,
     hoistServer,
-    serve
+    serve,
   )
-import Servant.API
+import Servant.API (type (:<|>) ((:<|>)))
 import Servant.RawM.Server (serveDirectoryWebApp)
 
 data Env = Env
