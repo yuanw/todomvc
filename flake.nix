@@ -2,7 +2,7 @@
   description = "yet another todo mvc repo";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils/master";
     easy-ps = {
       url = "github:justinwoo/easy-purescript-nix/master";
@@ -39,7 +39,8 @@
 
         myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle (p:
           with p;
-          [ cabal-install ormolu hlint hpack ] ++ pkgs.todomvc.buildInputs));
+          [ cabal-install ormolu haskell-language-server hlint hpack ]
+          ++ pkgs.todomvc.buildInputs));
 
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
