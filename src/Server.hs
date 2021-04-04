@@ -34,9 +34,9 @@ import Servant
     Proxy (..),
     Server,
     hoistServer,
-    serve,
-    (:<|>),
+    serve
   )
+import Servant.API
 import Servant.RawM.Server (serveDirectoryWebApp)
 
 data Env = Env
