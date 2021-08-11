@@ -1,2 +1,6 @@
 * ReaderT
 https://stackoverflow.com/questions/61780295/readert-design-pattern-parametrize-the-environment
+
+
+* How to build js bundle
+~spagp bundle-app --main Main --to static/main.js~
