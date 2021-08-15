@@ -42,6 +42,8 @@ component =
     , eval: H.mkEval H.defaultEval { handleAction = handleAction }
     }
   where
+  initialState :: forall input'. input' -> State
+  initialState _ = 0
 
   render state =
     HH.div
@@ -64,5 +66,3 @@ component =
     Increment ->
       H.modify_ \state -> state + 1
 
-initialState :: forall input. input -> State
-initialState _ = 0
