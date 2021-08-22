@@ -5,16 +5,26 @@
 
 module Api where
 
-import Data.Aeson
-import Data.ByteString.Lazy as Lazy (ByteString)
-import GHC.Generics (Generic)
-import Network.HTTP.Media ((//), (/:))
-import Servant.API (Accept (..), Get, JSON, MimeRender (..), (:<|>), (:>))
-import Servant.RawM (RawM)
+import           Data.Aeson
+import           Data.ByteString.Lazy          as Lazy
+                                                ( ByteString )
+import           GHC.Generics                   ( Generic )
+import           Network.HTTP.Media             ( (//)
+                                                , (/:)
+                                                )
+import           Servant.API                    ( (:<|>)
+                                                , (:>)
+                                                , Accept(..)
+                                                , Get
+                                                , JSON
+                                                , MimeRender(..)
+                                                )
+import           Servant.RawM                   ( RawM )
 
 data Scientist = Scientist
-  { sId :: Int,
-    sName :: String
+  { sId       :: Int
+  , sName     :: String
+  , sPhotoUrl :: String
   }
   deriving (Eq, Show, Generic)
 
