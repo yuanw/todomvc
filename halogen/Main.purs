@@ -5,24 +5,25 @@ import Prelude
 import Affjax as AX
 import Affjax.ResponseFormat as ResponseFormat
 import CSS.Display (display, flex)
-import CSS.Flexbox (AlignContentValue, JustifyContentValue, flexDirection, justifyContent, row )
+import CSS.Flexbox (AlignContentValue, JustifyContentValue, flexDirection, justifyContent, row)
 import CSS.Geometry (width)
 import CSS.Property (Value)
 import CSS.Size (rem)
 import CSS.String (fromString)
+import Data.Argonaut.Decode.Class (decodeJson)
 import Data.Either (Either(..))
 import Data.HTTP.Method (Method(..))
-import Effect.Aff.Class (class MonadAff)
 import Effect (Effect)
+import Effect.Aff.Class (class MonadAff)
 import Halogen as H
 import Halogen.Aff as HA
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
+import Halogen.HTML.Properties as HP
 import Halogen.VDom.Driver (runUI)
 import Web.Event.Event (Event)
 import Web.Event.Event as Event
-import Halogen.HTML.Properties as HP
 
 
 data Action = Increment | Decrement | MakeRequest Event
@@ -100,4 +101,6 @@ handleAction = case _ of
       H.liftEffect $ Event.preventDefault event
       H.modify_ _ { loading = true }
       response <- H.liftAff $ AX.request (AX.defaultRequest { url = "/scientist", method = Left GET, responseFormat = ResponseFormat.json })
-      H.modify_ _ { loading = false}
+      case (decodeJson =<< response :: Either JsonDecodeError (Array Scientist) ) of
+        Left e -> H.modify_ _ { loading = false}
+        Right sc -> H.modify_ _ {loading = false, scientists = sc}
