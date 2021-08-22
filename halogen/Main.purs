@@ -11,9 +11,11 @@ import CSS.Property (Value)
 import CSS.Size (rem)
 import CSS.String (fromString)
 import Data.Argonaut.Decode.Class (decodeJson)
+import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Data.Either (Either(..))
 import Data.HTTP.Method (Method(..))
 import Effect (Effect)
+import Effect.Class.Console (log)
 import Effect.Aff.Class (class MonadAff)
 import Halogen as H
 import Halogen.Aff as HA
@@ -29,7 +31,9 @@ import Web.Event.Event as Event
 data Action = Increment | Decrement | MakeRequest Event
 
 type Scientist  = {
-  name :: String
+   sName :: String
+ , sPhotoUrl :: String
+ , sId :: Int
 }
 
 
@@ -100,7 +104,16 @@ handleAction = case _ of
     MakeRequest event -> do
       H.liftEffect $ Event.preventDefault event
       H.modify_ _ { loading = true }
-      response <- H.liftAff $ AX.request (AX.defaultRequest { url = "/scientist", method = Left GET, responseFormat = ResponseFormat.json })
-      case (decodeJson =<< response :: Either JsonDecodeError (Array Scientist) ) of
-        Left e -> H.modify_ _ { loading = false}
-        Right sc -> H.modify_ _ {loading = false, scientists = sc}
+      res <- H.liftAff $ AX.request (AX.defaultRequest { url = "/scientist", method = Left GET, responseFormat = ResponseFormat.json })
+      case res of
+        Left err -> do
+          H.liftEffect $ log "Get /scientist error"
+          H.modify_ _ {loading = false}
+        Right response -> do
+          case (decodeJson response.body :: Either JsonDecodeError (Array Scientist) ) of
+            Left e -> do
+              log $ "can't parse json: " <> show e
+              H.modify_ _ { loading = false}
+            Right sc -> do
+              log "loaded"
+              H.modify_ _ {loading = false, scientists = sc}
