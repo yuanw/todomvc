@@ -71,7 +71,7 @@ scientists =
   , Scientist
     6
     "Wernher Von Braun"
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pythagoras_in_the_Roman_Forum%2C_Colosseum.jpg/440px-Pythagoras_in_the_Roman_Forum%2C_Colosseum.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Wernher_von_Braun_1960.jpg/440px-Wernher_von_Braun_1960.jpg"
   ]
 
 -- https://github.com/tryhaskell/tryhaskell/blob/d8b59e71d46cb890935f5c0c6c1d723cc9f78d99/src/TryHaskell.hs#L326-L419
