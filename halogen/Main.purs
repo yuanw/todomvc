@@ -10,13 +10,15 @@ import CSS.Geometry (width)
 import CSS.Property (Value)
 import CSS.Size (rem)
 import CSS.String (fromString)
+import Data.Array (head, index)
+import Data.Maybe (Maybe(..), isJust)
 import Data.Argonaut.Decode.Class (decodeJson)
 import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Data.Either (Either(..))
 import Data.HTTP.Method (Method(..))
 import Effect (Effect)
-import Effect.Class.Console (log)
 import Effect.Aff.Class (class MonadAff)
+import Effect.Class.Console (log)
 import Halogen as H
 import Halogen.Aff as HA
 import Halogen.HTML as HH
@@ -28,8 +30,7 @@ import Web.Event.Event (Event)
 import Web.Event.Event as Event
 
 
-data Action = Increment | Decrement | MakeRequest Event
-
+data Action = Initialze | Increment | Decrement
 type Scientist  = {
    sName :: String
  , sPhotoUrl :: String
@@ -41,6 +42,7 @@ type State =
   { counter :: Int
   , loading :: Boolean
   , scientists :: Array Scientist
+  , currentScientist :: Maybe Scientist
   }
 
 
@@ -64,11 +66,13 @@ component =
   H.mkComponent
     { initialState
     , render
-    , eval: H.mkEval H.defaultEval { handleAction = handleAction }
+    , eval: H.mkEval H.defaultEval
+      { handleAction = handleAction
+      , initialize = Just Initialze}
     }
   where
   initialState :: forall input'. input' -> State
-  initialState _ = {counter: 0, loading: false, scientists: []}
+  initialState _ = {counter: 0, loading: false, scientists: [], currentScientist : Nothing}
 
   render state =
     HH.div_ [
@@ -77,37 +81,25 @@ component =
       , HH.text (show state.counter)
       , HH.button [ HE.onClick \_ -> Increment ] [ HH.text "+" ]
         ]
-      ,
-
-      HH.form
-      [ HE.onSubmit \ev -> MakeRequest ev ]
-
-      [ HH.h2_ [ HH.text "Look up Scientists" ]
-      , HH.button
-        [ HP.disabled state.loading
-        , HP.type_ HP.ButtonSubmit
-        ]
-        [ HH.text "Fetch scientists" ]
+      , HH.h2_ [ HH.text "The Great Scientists" ]
     , HH.p_
         [ HH.text $ if state.loading then "Working..." else "" ]
-     ]
+    , HH.div_
+        case state.currentScientist of
+          Nothing -> []
+          Just s ->
+            [ HH.div_ [HH.img [HP.src s.sPhotoUrl]]
+            , HH.div_ [HH.text s.sName ]]
       ]
 
 handleAction :: forall output m . MonadAff m => Action -> H.HalogenM State Action () output m Unit
 handleAction = case _ of
-    Decrement ->
-      H.modify_ \s -> s {counter = s.counter - 1 }
-
-    Increment ->
-      H.modify_ \s -> s {counter = s.counter + 1 }
-
-    MakeRequest event -> do
-      H.liftEffect $ Event.preventDefault event
+    Initialze -> do
       H.modify_ _ { loading = true }
       res <- H.liftAff $ AX.request (AX.defaultRequest { url = "/scientist", method = Left GET, responseFormat = ResponseFormat.json })
       case res of
         Left err -> do
-          H.liftEffect $ log "Get /scientist error"
+          H.liftEffect $ log $ "Get /scientist error" <> AX.printError err
           H.modify_ _ {loading = false}
         Right response -> do
           case (decodeJson response.body :: Either JsonDecodeError (Array Scientist) ) of
@@ -116,4 +108,12 @@ handleAction = case _ of
               H.modify_ _ { loading = false}
             Right sc -> do
               log "loaded"
-              H.modify_ _ {loading = false, scientists = sc}
+              H.modify_ _ {loading = false, scientists = sc,  currentScientist = head sc }
+
+    Decrement ->
+      H.modify_ \s -> s {counter = s.counter - 1,
+                         currentScientist = index s.scientists (s.counter - 1) }
+
+    Increment ->
+      H.modify_ \s -> s {counter = s.counter + 1,
+                         currentScientist = index s.scientists (s.counter + 1) }

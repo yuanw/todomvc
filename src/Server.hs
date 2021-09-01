@@ -55,7 +55,7 @@ scientists =
   , Scientist
     2
     "Albert Einstein"
-    "https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/440px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg"
   , Scientist
     3
     "Gottfried Wilhelm Leibniz"
