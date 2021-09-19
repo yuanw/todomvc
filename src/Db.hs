@@ -15,7 +15,6 @@ module Db where
 import RIO
 import Rel8
 
-import           GHC.Generics                   ( Generic )
 data Author f = Author
   { authorId :: Column f Int64
   , name     :: Column f Text

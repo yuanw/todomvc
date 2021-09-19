@@ -9,7 +9,6 @@ import  RIO
 import           Data.Aeson
 import           Data.ByteString.Lazy          as Lazy
                                                 ( ByteString )
-import           GHC.Generics                   ( Generic )
 import           Network.HTTP.Media             ( (//)
                                                 , (/:)
                                                 )

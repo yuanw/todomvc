@@ -21,7 +21,7 @@ library
       OverloadedStrings
       NoImplicitPrelude
       TypeApplications
-  ghc-options: -Wall -Wno-name-shadowing
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -Wno-name-shadowing -fwarn-monomorphism-restriction -Werror
   build-depends:
       aeson
     , base >=4.7 && <5

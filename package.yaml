@@ -2,7 +2,15 @@ library:
   source-dirs: src
   ghc-options:
     - -Wall
+    - -Wcompat
+    - -Widentities
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wpartial-fields
+    - -Wredundant-constraints
     - -Wno-name-shadowing
+    - -fwarn-monomorphism-restriction
+    - -Werror
 
 dependencies:
   - base >= 4.7 && < 5

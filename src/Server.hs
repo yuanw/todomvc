@@ -10,12 +10,6 @@ import           Api                            ( API
                                                 , RawHtml(..)
                                                 , Scientist(..)
                                                 )
-import           Control.Concurrent.STM         ( TVar )
-import           Control.Monad.IO.Class         ( MonadIO(liftIO) )
-import           Control.Monad.Reader           ( MonadReader(ask)
-                                                , ReaderT(runReaderT)
-                                                )
-import           Data.Proxy                     ( )
 import           Lucid                          ( Html
                                                 , body_
                                                 , head_
@@ -32,7 +26,6 @@ import           Lucid                          ( Html
 import           Servant                        ( Application
                                                 , Handler
                                                 , HasServer(ServerT)
-                                                , Proxy(..)
                                                 , Server
                                                 , hoistServer
                                                 , serve
@@ -82,7 +75,7 @@ renderIndex = html_ $ do
     link_ [rel_ "icon", href_ "/static/favicon.ico"]
     link_ [rel_ "stylesheet", type_ "text/css", href_ "/styles.css"]
   body_ $ do
-    script_ [src_ "/static/main.js"] ""
+    script_ [src_ "/static/main.js"] ("" :: String)
 
 indexHandler :: ReaderT Env IO RawHtml
 indexHandler = return $ RawHtml (renderBS renderIndex)

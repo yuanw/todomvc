@@ -1,7 +1,6 @@
 module Main where
 
-import RIO hiding (newTVarIO)
-import Control.Concurrent.STM.TVar
+import RIO
 import Data.Maybe (fromMaybe)
 import Network.Wai.Handler.Warp (run)
 import Server (Env (..), app)
