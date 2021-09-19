@@ -1,7 +1,6 @@
 module Main where
 
 import RIO
-import Control.Monad ((<=<))
 import Data.Maybe (fromMaybe)
 import Network.Wai.Handler.Warp (run)
 import Server (Env (..), app)
@@ -11,7 +10,7 @@ import Prelude (read)
 main :: IO ()
 main = do
   ref <- newTVarIO []
-  port <- fmap (fromMaybe 8080) $ fmap join    $ (fmap . fmap) readMaybe $  lookupEnv "PORT"
+  port <- fmap (fromMaybe 8080 . join . fmap readMaybe ) $  lookupEnv "PORT"
   staticFilePath <- fromMaybe "/var/www" <$> lookupEnv "STATIC_FILE_PATH"
   let env =
         Env
