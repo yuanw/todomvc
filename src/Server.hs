@@ -5,7 +5,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Server where
-
+import RIO hiding (Handler)
 import           Api                            ( API
                                                 , RawHtml(..)
                                                 , Scientist(..)

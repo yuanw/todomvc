@@ -6,6 +6,8 @@ library:
 
 dependencies:
   - base >= 4.7 && < 5
+  - rio
+  - rel8
   - aeson
   - bytestring
   - containers
@@ -24,7 +26,9 @@ dependencies:
 
 default-extensions:
   - OverloadedStrings
+  - NoImplicitPrelude
   - TypeApplications
+
 name: todomvc
 
 executables:

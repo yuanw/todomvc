@@ -1,10 +1,12 @@
 module Main where
 
+import RIO hiding (newTVarIO)
 import Control.Concurrent.STM.TVar
 import Data.Maybe (fromMaybe)
 import Network.Wai.Handler.Warp (run)
 import Server (Env (..), app)
 import System.Environment (lookupEnv)
+import Prelude (read)
 
 main :: IO ()
 main = do
