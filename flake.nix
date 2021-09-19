@@ -127,6 +127,11 @@
             pkgs.nixpkgs-fmt
             pkgs.nodePackages.purescript-language-server
             pkgs.nodePackages.pscid
+
+            # Others
+            pkgs.nixpkgs-fmt
+            # database
+            pkgs.postgresql
           ];
         };
       });
