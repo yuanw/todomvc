@@ -14,3 +14,9 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Nix build
       run: nix build
+    - name: push
+    - run: scripts/push-image.sh
+      env:
+        GCR_DEVOPS_SERVICE_ACCOUNT_KEY: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+        GOOGLE_CLOUD_PROJECT_NAME: ${{ secrets.GOOGLE_CLOUD_PROJECT_NAME }}
+        GOOGLE_CLOUD_RUN_SERVICE_NAME:   ${{ secrets.GOOGLE_CLOUD_RUN_SERVICE_NAME}}

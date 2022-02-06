@@ -124,6 +124,7 @@
           ];
           packages = [
             myHaskellEnv
+            pkgs.skopeo
             pkgs.nixpkgs-fmt
             pkgs.nodePackages.purescript-language-server
             pkgs.nodePackages.pscid
