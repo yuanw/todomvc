@@ -15,8 +15,10 @@ jobs:
     - name: Nix build
       run: nix build
     - name: push
-      run: script/push-image.sh
+      run: |
+        script/push-image.sh
       env:
         GCR_DEVOPS_SERVICE_ACCOUNT_KEY: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
         GOOGLE_CLOUD_PROJECT_NAME: ${{ secrets.GOOGLE_CLOUD_PROJECT_NAME }}
         GOOGLE_CLOUD_RUN_SERVICE_NAME: ${{ secrets.GOOGLE_CLOUD_RUN_SERVICE_NAME}}
+      if: github.ref == 'refs/heads/main'
