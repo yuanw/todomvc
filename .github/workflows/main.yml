@@ -16,7 +16,7 @@ jobs:
       run: nix build
     - name: Push Image
       run: |
-        script/push-image.sh
+        script/push_image.sh
       env:
         GCR_DEVOPS_SERVICE_ACCOUNT_KEY: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
         GOOGLE_CLOUD_PROJECT_NAME: ${{ secrets.GOOGLE_CLOUD_PROJECT_NAME }}
