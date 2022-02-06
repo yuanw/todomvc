@@ -14,7 +14,7 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Nix build
       run: nix build
-    - name: push
+    - name: Push Image
       run: |
         script/push-image.sh
       env:
