@@ -46,7 +46,7 @@
 set -eu
 
 
-
+echo $XDG_RUNTIME_DIR
 echo ''${GCR_DEVOPS_SERVICE_ACCOUNT_KEY} | ${pkgs.skopeo}/bin/skopeo login -u _json_key --password-stdin gcr.io
 '';
         docker = pkgs.dockerTools.buildImage {
