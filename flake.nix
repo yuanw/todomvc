@@ -45,8 +45,11 @@
         upload-script = pkgs.writeShellScriptBin "upload-image" ''
 set -eu
 
-    DATE="$(${pkgs.ddate}/bin/ddate +'the %e of %B%, %Y')"
-    ${pkgs.cowsay}/bin/cowsay Hello, world! Today is $DATE.
+OCI_ARCHIVE=$(nix-build --no-out-link)
+DOCKER_REPOSITORY="docker://gcr.io/$(GOOGLE_CLOUD_PROJECT_NAME)/$(GOOGLE_CLOUD_RUN_SERVICE_NAME):$(GITHUB_SHA)"
+
+${pkgs.skopeo}/bin/skopeo login -u _json_key -p $DOCKER_ACCESS_TOKEN  gcr.io
+${pkgs.skopeo}/bin/skopeo copy "docker-archive:$OCI_ARCHIVE" "$DOCKER_REPOSITORY"
 '';
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
