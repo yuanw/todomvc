@@ -42,6 +42,12 @@
           [ cabal-install ormolu haskell-language-server hlint hpack ]
           ++ pkgs.todomvc.buildInputs));
 
+        upload-script = pkgs.writeShellScriptBin "upload-image" ''
+set -eu
+
+    DATE="$(${pkgs.ddate}/bin/ddate +'the %e of %B%, %Y')"
+    ${pkgs.cowsay}/bin/cowsay Hello, world! Today is $DATE.
+'';
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
           tag = "latest";
@@ -56,6 +62,7 @@
 
       in rec {
         defaultPackage = docker;
+        apps.upload-script = flake-utils.lib.mkApp { drv = upload-script; };
         packages.todomvc = pkgs.todomvc;
         devShell = pkgs.devshell.mkShell {
           name = "todo-mvc-devShell";
