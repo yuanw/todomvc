@@ -48,7 +48,7 @@ set -eu
 OCI_ARCHIVE=$(nix-build --no-out-link)
 DOCKER_REPOSITORY="docker://gcr.io/$GOOGLE_CLOUD_PROJECT_NAME/$GOOGLE_CLOUD_RUN_SERVICE_NAME:$GITHUB_SHA"
 
-${pkgs.skopeo}/bin/skopeo login -u _json_key -p $DOCKER_ACCESS_TOKEN  gcr.io
+${pkgs.skopeo}/bin/skopeo login -u _json_key -p $GCR_DEVOPS_SERVICE_ACCOUNT_KEY  gcr.io
 ${pkgs.skopeo}/bin/skopeo copy "docker-archive:$OCI_ARCHIVE" "$DOCKER_REPOSITORY"
 '';
         docker = pkgs.dockerTools.buildImage {
