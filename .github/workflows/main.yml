@@ -16,6 +16,7 @@ jobs:
       run: nix build
     - name: Push Image
       run: |
+        skopeo login -u _json_key -p ${DOCKER_ACCESS_TOKEN}  gcr.io 2>/dev/null
         script/push_image.sh
       env:
         GCR_DEVOPS_SERVICE_ACCOUNT_KEY: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
