@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i skopeo
+#! nix-shell -i bash -p skopeo
 
 set -eu
 
