@@ -54,6 +54,7 @@ scientists =
     Scientist 4 "Stephen Hawking",
     Scientist 5 "Pythagoras",
     Scientist 6 "Wernher Von Braun"
+    Scientist 7 "Yuan Wang"
   ]
 
 -- https://github.com/tryhaskell/tryhaskell/blob/d8b59e71d46cb890935f5c0c6c1d723cc9f78d99/src/TryHaskell.hs#L326-L419
