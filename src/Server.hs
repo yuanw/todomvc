@@ -53,7 +53,7 @@ scientists =
     Scientist 3 "Gottfried Wilhelm Leibniz",
     Scientist 4 "Stephen Hawking",
     Scientist 5 "Pythagoras",
-    Scientist 6 "Wernher Von Braun"
+    Scientist 6 "Wernher Von Braun",
     Scientist 7 "Yuan Wang"
   ]
 
