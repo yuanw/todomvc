@@ -27,6 +27,7 @@
           final.haskell.lib.justStaticExecutables final.haskellPackages.todomvc;
         purs = (final.callPackage easy-ps { }).purs;
         spago = (final.callPackage easy-ps { }).spago;
+        spago2nix = (final.callPackage easy-ps { }).spago2nix;
       };
     in {
       inherit overlay;
@@ -50,6 +51,7 @@
 
           ${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOUNT_KEY" "docker-archive:$OCI_ARCHIVE" "$DOCKER_REPOSITORY"
         '';
+        frontendJs = (import ./frontend { inherit pkgs; }).frontendJs;
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
           tag = "latest";
@@ -57,7 +59,7 @@
           contents = [ pkgs.bash pkgs.coreutils ];
           extraCommands = ''
             mkdir -p var/www/
-            cp ${./static/main.js} var/www/main.js
+            cp ${frontendJs}/main.js var/www/main.js
           '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
         };
@@ -104,6 +106,11 @@
               name = "purs";
               category = "purescript";
               package = "purs";
+            }
+            {
+              name = "spago2nix";
+              category = "purescript";
+              package = "spago2nix";
             }
             {
               name = "entr";
