@@ -43,13 +43,13 @@
           ++ pkgs.todomvc.buildInputs));
 
         upload-script = pkgs.writeShellScriptBin "upload-image" ''
-set -eu
+          set -eu
 
-OCI_ARCHIVE=$(nix-build --no-out-link)
-DOCKER_REPOSITORY="docker://gcr.io/$GOOGLE_CLOUD_PROJECT_NAME/$GOOGLE_CLOUD_RUN_SERVICE_NAME:$GITHUB_SHA"
+          OCI_ARCHIVE=$(nix-build --no-out-link)
+          DOCKER_REPOSITORY="docker://gcr.io/$GOOGLE_CLOUD_PROJECT_NAME/$GOOGLE_CLOUD_RUN_SERVICE_NAME:$GITHUB_SHA"
 
-${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOUNT_KEY" "docker-archive:$OCI_ARCHIVE" "$DOCKER_REPOSITORY"
-'';
+          ${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOUNT_KEY" "docker-archive:$OCI_ARCHIVE" "$DOCKER_REPOSITORY"
+        '';
         docker = pkgs.dockerTools.buildImage {
           name = "todomvc";
           tag = "latest";
@@ -68,6 +68,9 @@ ${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOU
         packages.todomvc = pkgs.todomvc;
         devShell = pkgs.devshell.mkShell {
           name = "todo-mvc-devShell";
+          imports = [ (pkgs.devshell.extraModulesDir + "/git/hooks.nix") ];
+          git.hooks.enable = true;
+          git.hooks.pre-commit.text = "${pkgs.treefmt}/bin/treefmt";
           bash = {
             extra = ''
               export LD_INCLUDE_PATH="$DEVSHELL_DIR/include"
@@ -139,6 +142,7 @@ ${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOU
             pkgs.nodePackages.pscid
 
             # Others
+            pkgs.treefmt
             pkgs.nixpkgs-fmt
             # database
             pkgs.postgresql
