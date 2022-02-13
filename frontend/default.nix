@@ -21,7 +21,7 @@ in {
     '';
     installPhase = ''
       mkdir $out
-      mv frontend.js $out/
+      mv main.js $out/
     '';
   };
 
