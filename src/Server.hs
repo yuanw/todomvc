@@ -5,56 +5,66 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Server where
-
-import Api (API, RawHtml (..), Scientist (..))
-import Control.Concurrent.STM (TVar)
-import Control.Monad.IO.Class (MonadIO (liftIO))
-import Control.Monad.Reader
-  ( MonadReader (ask),
-    ReaderT (runReaderT),
-  )
-import Data.Proxy ()
-import Lucid
-  ( Html,
-    body_,
-    head_,
-    href_,
-    html_,
-    link_,
-    rel_,
-    renderBS,
-    script_,
-    src_,
-    title_,
-    type_,
-  )
-import Servant
-  ( Application,
-    Handler,
-    HasServer (ServerT),
-    Proxy (..),
-    Server,
-    hoistServer,
-    serve,
-  )
-import Servant.API (type (:<|>) ((:<|>)))
-import Servant.RawM.Server (serveDirectoryWebApp)
+import RIO hiding (Handler)
+import           Api                            ( API
+                                                , RawHtml(..)
+                                                , Scientist(..)
+                                                )
+import           Lucid                          ( Html
+                                                , body_
+                                                , head_
+                                                , href_
+                                                , html_
+                                                , link_
+                                                , rel_
+                                                , renderBS
+                                                , script_
+                                                , src_
+                                                , title_
+                                                , type_
+                                                )
+import           Servant                        ( Application
+                                                , Handler
+                                                , HasServer(ServerT)
+                                                , Server
+                                                , hoistServer
+                                                , serve
+                                                )
+import           Servant.API                    ( type (:<|>)((:<|>)) )
+import           Servant.RawM.Server            ( serveDirectoryWebApp )
 
 data Env = Env
-  { appPort :: Int,
-    staticDir :: FilePath,
-    scientistStore :: !(TVar [Scientist])
+  { appPort        :: Int
+  , staticDir      :: FilePath
+  , scientistStore :: !(TVar [Scientist])
   }
 
 scientists :: [Scientist]
 scientists =
-  [ Scientist 1 "Isaac Newton",
-    Scientist 2 "Albert Einstein",
-    Scientist 3 "Gottfried Wilhelm Leibniz",
-    Scientist 4 "Stephen Hawking",
-    Scientist 5 "Pythagoras",
-    Scientist 6 "Wernher Von Braun",
-    Scientist 7 "Yuan Wang"
+  [ Scientist
+    1
+    "Isaac Newton"
+    "https://upload.wikimedia.org/wikipedia/commons/3/39/GodfreyKneller-IsaacNewton-1689.jpg"
+  , Scientist
+    2
+    "Albert Einstein"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/440px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg"
+  , Scientist
+    3
+    "Gottfried Wilhelm Leibniz"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg/440px-Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg"
+  , Scientist
+    4
+    "Stephen Hawking"
+    "https://upload.wikimedia.org/wikipedia/commons/e/eb/Stephen_Hawking.StarChild.jpg"
+  , Scientist
+    5
+    "Pythagoras"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pythagoras_in_the_Roman_Forum%2C_Colosseum.jpg/440px-Pythagoras_in_the_Roman_Forum%2C_Colosseum.jpg"
+  , Scientist
+    6
+    "Wernher Von Braun"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Wernher_von_Braun_1960.jpg/440px-Wernher_von_Braun_1960.jpg"
   ]
 
 -- https://github.com/tryhaskell/tryhaskell/blob/d8b59e71d46cb890935f5c0c6c1d723cc9f78d99/src/TryHaskell.hs#L326-L419
@@ -65,7 +75,7 @@ renderIndex = html_ $ do
     link_ [rel_ "icon", href_ "/static/favicon.ico"]
     link_ [rel_ "stylesheet", type_ "text/css", href_ "/styles.css"]
   body_ $ do
-    script_ [src_ "/static/main.js"] ""
+    script_ [src_ "/static/main.js"] ("" :: String)
 
 indexHandler :: ReaderT Env IO RawHtml
 indexHandler = return $ RawHtml (renderBS renderIndex)
@@ -86,9 +96,9 @@ myAPI = Proxy
 
 app :: Env -> Application
 app env = serve myAPI apiServer
-  where
-    apiServer :: Server API
-    apiServer = hoistServer myAPI transformation serverRoot
+ where
+  apiServer :: Server API
+  apiServer = hoistServer myAPI transformation serverRoot
 
-    transformation :: ReaderT Env IO a -> Handler a
-    transformation readerT = liftIO $ runReaderT readerT env
+  transformation :: ReaderT Env IO a -> Handler a
+  transformation readerT = liftIO $ runReaderT readerT env

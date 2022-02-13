@@ -1,2 +1,12 @@
 * ReaderT
 https://stackoverflow.com/questions/61780295/readert-design-pattern-parametrize-the-environment
+
+
+* How to build js bundle
+~spagp bundle-app --main Main --to static/main.js~
+
+
+* References
+- https://blog.typeable.io/posts/2021-03-15-reflex-1.html
+- https://purescript-simple-json.readthedocs.io/en/latest/with-affjax.html
+- https://github.com/nodew/haskell-realworld-example/blob/master/src/Conduit.hs

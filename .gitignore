@@ -25,6 +25,8 @@ cabal.sandbox.config
 *.hp
 *.tar.gz
 .envrc
+todomvc.cabal
+
 /bower_components/
 /node_modules/
 /.pulp-cache/

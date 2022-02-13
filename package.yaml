@@ -2,10 +2,20 @@ library:
   source-dirs: src
   ghc-options:
     - -Wall
+    - -Wcompat
+    - -Widentities
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wpartial-fields
+    - -Wredundant-constraints
     - -Wno-name-shadowing
+    - -fwarn-monomorphism-restriction
+    - -Werror
 
 dependencies:
   - base >= 4.7 && < 5
+  - rio
+  - rel8
   - aeson
   - bytestring
   - containers
@@ -24,7 +34,9 @@ dependencies:
 
 default-extensions:
   - OverloadedStrings
+  - NoImplicitPrelude
   - TypeApplications
+
 name: todomvc
 
 executables:
