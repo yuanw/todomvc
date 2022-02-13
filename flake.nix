@@ -39,7 +39,7 @@
 
         myHaskellEnv = (pkgs.haskellPackages.ghcWithHoogle (p:
           with p;
-          [ cabal-install ormolu haskell-language-server hlint hpack ]
+          [ cabal-install haskell-language-server hlint hpack ]
           ++ pkgs.todomvc.buildInputs));
 
         upload-script = pkgs.writeShellScriptBin "upload-image" ''
@@ -142,6 +142,7 @@
             pkgs.nodePackages.pscid
 
             # Others
+            pkgs.ormolu
             pkgs.treefmt
             pkgs.nixpkgs-fmt
             # database
