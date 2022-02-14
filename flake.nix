@@ -59,6 +59,7 @@
           contents = [ pkgs.bash pkgs.coreutils ];
           extraCommands = ''
             mkdir -p var/www/
+            cp ${./static/favicon.ico} var/www/favicon.ico
             cp ${frontendJs}/main.js var/www/main.js
           '';
           config.Cmd = [ "${pkgs.todomvc}/bin/todomvc" ];
