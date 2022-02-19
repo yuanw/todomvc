@@ -4,8 +4,7 @@ import Prelude
 
 import Affjax as AX
 import Affjax.ResponseFormat as ResponseFormat
-import CSS.Display (display, flex)
-import CSS.Flexbox (AlignContentValue, JustifyContentValue, flexDirection, justifyContent, row)
+import CSS.Flexbox (AlignContentValue, JustifyContentValue)
 import CSS.Geometry (width)
 import CSS.Property (Value)
 import CSS.Size (rem)
