@@ -25,7 +25,6 @@ to generate this file without the comments in this block.
   , "http-methods"
   , "maybe"
   , "prelude"
-  , "psci-support"
   , "web-events"
   ]
 , packages = ./packages.dhall
