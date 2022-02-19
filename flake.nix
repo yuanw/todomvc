@@ -68,7 +68,10 @@
       in rec {
         defaultPackage = docker;
         apps.upload-script = flake-utils.lib.mkApp { drv = upload-script; };
-        packages.todomvc = pkgs.todomvc;
+        packages = {
+          todomvc = pkgs.todomvc;
+          frontendJs = frontendJs;
+        };
         devShell = pkgs.devshell.mkShell {
           name = "todo-mvc-devShell";
           imports = [ (pkgs.devshell.extraModulesDir + "/git/hooks.nix") ];
