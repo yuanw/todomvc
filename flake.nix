@@ -26,6 +26,7 @@
         todomvc =
           final.haskell.lib.justStaticExecutables final.haskellPackages.todomvc;
         purs = (final.callPackage easy-ps { }).purs;
+        purs-tidy = (final.callPackage easy-ps { }).purs-tidy;
         spago = (final.callPackage easy-ps { }).spago;
         spago2nix = (final.callPackage easy-ps { }).spago2nix;
       };
@@ -105,6 +106,11 @@
               name = "spago";
               category = "purescript";
               package = "spago";
+            }
+            {
+              name = "purs-tidy";
+              category = "purescript";
+              package = "purs-tidy";
             }
             {
               name = "purs";

@@ -12,3 +12,8 @@ options = [
     "--check-idempotence",
 ]
 includes = ["*.hs"]
+
+[formatter.purescript]
+command = "purs-tidy"
+options = ["format-in-place"]
+includes = ["*.purs"]
