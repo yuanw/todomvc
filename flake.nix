@@ -47,13 +47,12 @@
         upload-script = pkgs.writeShellScriptBin "upload-image" ''
           set -eu
 
-          OCI_ARCHIVE=$(nix-build --no-out-link)
           DOCKER_REPOSITORY="docker://gcr.io/$GOOGLE_CLOUD_PROJECT_NAME/$GOOGLE_CLOUD_RUN_SERVICE_NAME:$GITHUB_SHA"
 
-          ${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOUNT_KEY" "docker-archive:$OCI_ARCHIVE" "$DOCKER_REPOSITORY"
+         $(nix-build) | ${pkgs.gzip}/bin/gzip --fast |  ${pkgs.skopeo}/bin/skopeo copy --dest-creds="_json_key:$GCR_DEVOPS_SERVICE_ACCOUNT_KEY" "docker-archive:/dev/stdin" "$DOCKER_REPOSITORY"
         '';
         frontendJs = (import ./frontend { inherit pkgs; }).frontendJs;
-        docker = pkgs.dockerTools.buildImage {
+        docker = pkgs.dockerTools.streamLayeredImage {
           name = "todomvc";
           tag = "latest";
           # for debugging
