@@ -158,7 +158,7 @@
             pkgs.nodePackages.pscid
 
             # Others
-            pkgs.ormolu
+            # pkgs.ormolu
             pkgs.treefmt
             pkgs.nixpkgs-fmt
             # database
