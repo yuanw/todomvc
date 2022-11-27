@@ -29,6 +29,18 @@ let
         installPhase = "ln -s $src $out";
       };
 
+    "affjax-web" = pkgs.stdenv.mkDerivation {
+        name = "affjax-web";
+        version = "v1.0.0";
+        src = pkgs.fetchgit {
+          url = "https://github.com/purescript-contrib/purescript-affjax-web.git";
+          rev = "f53a865f4012e4c8bafdd52c6ba39697df68c9d9";
+          sha256 = "0nv43h8w72mr7x469sh3r4qz1zcv7srfyyfar9d00xbdshrvgdnh";
+        };
+        phases = "installPhase";
+        installPhase = "ln -s $src $out";
+      };
+
     "argonaut-codecs" = pkgs.stdenv.mkDerivation {
         name = "argonaut-codecs";
         version = "v9.1.0";
@@ -408,18 +420,6 @@ let
           url = "https://github.com/purescript-halogen/purescript-halogen.git";
           rev = "222e1febc889c64a71013748b6bf04db969888f9";
           sha256 = "1y0jxnyav8wv49zwmimfbcp6niyz25mxh2spn6kfh9bfhrpfd36d";
-        };
-        phases = "installPhase";
-        installPhase = "ln -s $src $out";
-      };
-
-    "halogen-css" = pkgs.stdenv.mkDerivation {
-        name = "halogen-css";
-        version = "v9.0.0";
-        src = pkgs.fetchgit {
-          url = "https://github.com/purescript-halogen/purescript-halogen-css.git";
-          rev = "e3b90ee69262d0f80f9511338da7079aa6154e51";
-          sha256 = "0s4wmfsh90d7a9v3ddd1hl6gv0x9d2nhkvwfnbp322pwpgb0v567";
         };
         phases = "installPhase";
         installPhase = "ln -s $src $out";
