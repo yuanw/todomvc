@@ -14,6 +14,7 @@ to generate this file without the comments in this block.
 , dependencies =
   [ "aff"
   , "affjax"
+  , "affjax-web"
   , "argonaut-codecs"
   , "arrays"
   , "console"
@@ -21,11 +22,8 @@ to generate this file without the comments in this block.
   , "effect"
   , "either"
   , "halogen"
-  , "halogen-css"
-  , "http-methods"
   , "maybe"
   , "prelude"
-  , "web-events"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

@@ -4,29 +4,24 @@ import Prelude
 
 import Affjax as AX
 import Affjax.ResponseFormat as ResponseFormat
+import Affjax.Web as AW
 import CSS.Flexbox (AlignContentValue, JustifyContentValue)
-import CSS.Geometry (width)
 import CSS.Property (Value)
-import CSS.Size (rem)
 import CSS.String (fromString)
 import Data.Array (head, index)
-import Data.Maybe (Maybe(..), isJust)
+import Data.Maybe (Maybe(..))
 import Data.Argonaut.Decode.Class (decodeJson)
 import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Data.Either (Either(..))
-import Data.HTTP.Method (Method(..))
 import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
 import Effect.Class.Console (log)
 import Halogen as H
 import Halogen.Aff as HA
 import Halogen.HTML as HH
-import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Halogen.VDom.Driver (runUI)
-import Web.Event.Event (Event)
-import Web.Event.Event as Event
 
 data Action = Initialze | Increment | Decrement
 type Scientist =
@@ -96,7 +91,7 @@ handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action
 handleAction = case _ of
   Initialze -> do
     H.modify_ _ { loading = true }
-    res <- H.liftAff $ AX.request (AX.defaultRequest { url = "/scientist", method = Left GET, responseFormat = ResponseFormat.json })
+    res <- H.liftAff $ AW.get  ResponseFormat.json "/scientist"
     case res of
       Left err -> do
         H.liftEffect $ log $ "Get /scientist error" <> AX.printError err
