@@ -99,17 +99,12 @@ in  upstream
 -------------------------------
 -}
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.14.5-20220203/packages.dhall
-        sha256:f8905bf5d7ce9d886cf4ef1c5893ab55de0b30c82c2b4137f272d075000fbc50
+      https://github.com/purescript/package-sets/releases/download/psc-0.15.4-20221127/packages.dhall
+        sha256:9619da55468363705b888350fdd38735a5e90dab101f8d9193057552c5efccad
 
 in  upstream
   with halogen-css =
-  { dependencies =
-     [ "css"
-     , "halogen"
-     ]
-  , repo =
-    "https://github.com/purescript-halogen/purescript-halogen-css.git"
-  , version =
-     "v9.0.0"
-  }
+    { dependencies = [ "css", "halogen" ]
+    , repo = "https://github.com/purescript-halogen/purescript-halogen-css.git"
+    , version = "v9.0.0"
+    }
