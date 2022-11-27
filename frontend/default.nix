@@ -7,7 +7,7 @@ in {
   frontendJs = pkgs.stdenv.mkDerivation {
     name = "frontendJs";
     buildInputs = [ spagoPkgs.installSpagoStyle spagoPkgs.buildSpagoStyle ];
-    nativeBuildInputs = with pkgs; [ purs spago ];
+    nativeBuildInputs = with pkgs; [ purs spago esbuild];
     src = ./.;
     unpackPhase = ''
       cp $src/spago.dhall .
@@ -17,7 +17,7 @@ in {
     '';
     buildPhase = ''
       build-spago-style "./src/**/*.purs"
-      spago bundle-app --no-install --no-build -m Main -t main.js --global-cache skip
+      esbuild --bundle ./output/Main/index.js --platform=browser --minify --outfile="main.js"
     '';
     installPhase = ''
       mkdir $out
